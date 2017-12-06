@@ -2,7 +2,8 @@
  :duct.core/environment :production
 
  :lacinia-app/umlaut
- {:umlaut-file-path "lacinia_app/cgg-schema.umlaut"}
+ {:umlaut-files-folder "schema"
+  :lacinia {:output-file "resource/schema.edn"}}
 
  :lacinia-app/db
  {:data-path "lacinia_app/cgg-data.edn"}

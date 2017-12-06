@@ -44,10 +44,12 @@
         (utils/save-string-to-file (join-path out (str filename ".clj")) v)))))
 
 (defn- process-lacinia [ins out]
-  (utils/save-map-to-file out (lacinia/gen ins)))
+  (utils/save-map-to-file out (lacinia/gen ins))
+  (lacinia/gen ins))
 
 (defn- process-graphql [ins out]
-  (utils/save-string-to-file out (graphql/gen ins)))
+  (utils/save-string-to-file out (graphql/gen ins))
+  (graphql/gen ins))
 
 (defmethod ig/init-key :lacinia-app/umlaut [_ {:keys [umlaut-files-folder
                                                       dot lacinia graphql spec]}]
@@ -60,7 +62,7 @@
         (do (process-lacinia umlaut-files output-file)
             (assoc $ :lacinia lacinia)) $)
       (if-let [{:keys [output-file]} graphql]
-        (do (process-graphql umlaut-files output-file)
+        (do (println (process-graphql umlaut-files output-file))
             (assoc $ :graphql graphql)) $)
       (if-let [{:keys [output-folder spec-package custom-validators-filepath id-namespace]} spec]
         (do (process-spec umlaut-files [output-folder spec-package custom-validators-filepath id-namespace])
