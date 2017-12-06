@@ -1,0 +1,12 @@
+{:duct.core/project-ns  lacinia-app
+ :duct.core/environment :production
+
+ :lacinia-app/resolvers
+ {}
+
+ :lacinia-app/schema
+ {:schema-path "lacinia_app/cgg-schema.edn"
+  :resolvers #ig/ref :lacinia-app/resolvers}
+
+ :lacinia-app/pedestal
+ {:schema #ig/ref :lacinia-app/schema}}
