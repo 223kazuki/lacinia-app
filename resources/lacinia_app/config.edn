@@ -1,8 +1,14 @@
 {:duct.core/project-ns  lacinia-app
  :duct.core/environment :production
 
+ :lacinia-app/umlaut
+ {:umlaut-file-path "lacinia_app/cgg-schema.umlaut"}
+
+ :lacinia-app/db
+ {:data-path "lacinia_app/cgg-data.edn"}
+
  :lacinia-app/resolvers
- {}
+ {:db #ig/ref :lacinia-app/db}
 
  :lacinia-app/schema
  {:schema-path "lacinia_app/cgg-schema.edn"

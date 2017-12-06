@@ -24,21 +24,14 @@
          (filter #(-> % :designers (contains? id))))))
 
 (defn entity-map
-  [data k]
+  [db k]
   (reduce #(assoc %1 (:id %2) %2)
           {}
-          (get data k)))
+          (get db k)))
 
-(defn resolver-map
-  []
-  (let [cgg-data (-> (io/resource "cgg-data.edn")
-                     slurp
-                     edn/read-string)
-        games-map (entity-map cgg-data :games)
-        designers-map (entity-map cgg-data :designers)]
+(defmethod ig/init-key :lacinia-app/resolvers [_ {:keys [db]}]
+  (let [games-map (entity-map db :games)
+        designers-map (entity-map db :designers)]
     {:query/game-by-id (partial resolve-game-by-id games-map)
      :BoardGame/designers (partial resolve-board-game-designers designers-map)
      :Designer/games (partial resolve-designer-games games-map)}))
-
-(defmethod ig/init-key :lacinia-app/resolvers [_ {:keys [db]}]
-  (resolver-map))

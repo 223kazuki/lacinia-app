@@ -2,10 +2,12 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
-  :dependencies [[org.clojure/clojure "1.9.0-RC1"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [duct/core "0.6.1"]
-                 [com.walmartlabs/lacinia "0.23.0-rc-1"]
-                 [com.walmartlabs/lacinia-pedestal "0.5.0"]]
+                 [com.walmartlabs/lacinia "0.23.0"]
+                 [com.walmartlabs/lacinia-pedestal "0.5.0"]
+                 [umlaut "0.2.0"]
+                 [lein-umlaut "0.2.0"]]
   :plugins [[duct/lein-duct "0.10.5"]]
   :main ^:skip-aot lacinia-app.main
   :resource-paths ["resources" "target/resources"]
