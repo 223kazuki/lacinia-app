@@ -48,6 +48,19 @@
    "A person who may have contributed to a board game design."}},
  :enums {},
  :interfaces {},
+ :mutations
+ {:add_game
+  {:type :BoardGame,
+   :description "Access a BoardGame by its unique id, if it exists.",
+   :isDeprecated false,
+   :args
+   {:name {:type (non-null String)},
+    :summary {:type String},
+    :description {:type String},
+    :min_players {:type Int},
+    :max_players {:type Int},
+    :play_time {:type Int}},
+   :resolve :mutaition_add-game!}},
  :queries
  {:game_by_id
   {:type :BoardGame,

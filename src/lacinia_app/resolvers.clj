@@ -32,8 +32,26 @@
          vals
          (filter #(-> % :designers (contains? id))))))
 
+(defn resolve-add-game!
+  [db context args value]
+  (let [next-id (or (some->> (:games @db)
+                             (map :id)
+                             (map #(Integer. %))
+                             sort
+                             last
+                             inc
+                             str)
+                    "0000")
+        game (-> args
+                 (select-keys [:name :summary :description :designers
+                               :min_players :max_players :play_time])
+                 (assoc :id next-id))]
+    (swap! db update-in [:games] #(conj % game))
+    game))
+
 (defmethod ig/init-key :lacinia-app/resolvers [_ {:keys [db]}]
   ;; TODO: https://github.com/workco/umlaut/issues/40
   {:query_game-by-id (partial resolve-game-by-id db)
    :BoardGame_designers (partial resolve-board-game-designers db)
-   :Designer_games (partial resolve-designer-games db)})
+   :Designer_games (partial resolve-designer-games db)
+   :mutaition_add-game! (partial resolve-add-game! db)})

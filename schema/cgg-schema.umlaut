@@ -44,3 +44,16 @@ type QueryRoot {
     @lang/lacinia resolver query_game-by-id
   }
 }
+
+@lang/lacinia identifier mutation
+type MutationRoot {
+  add_game(name: String
+           summary: String?
+           description: String?
+           min_players: Integer?
+           max_players: Integer?
+           play_time: Integer?): BoardGame? {
+    @doc "Add a new BoardGame."
+    @lang/lacinia resolver mutaition_add-game!
+  }
+}
