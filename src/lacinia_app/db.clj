@@ -3,7 +3,11 @@
             [integrant.core :as ig]
             [clojure.edn :as edn]))
 
-(defmethod ig/init-key :lacinia-app/db [_ {:keys [data-path]}]
-  (-> (io/resource data-path)
+(defmethod ig/init-key :lacinia-app/db [_ {:keys [initial-data-path]}]
+  (-> (io/resource initial-data-path)
       slurp
-      edn/read-string))
+      edn/read-string
+      atom))
+
+(defmethod ig/halt-key! :lacinia-app/db [_ db]
+  (reset! db nil))

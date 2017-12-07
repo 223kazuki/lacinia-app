@@ -1,27 +1,46 @@
-enum RelationshipStatus {
-  SINGLE
-  MARRIED
-}
-
-@lang/dot color red
-@doc "This is my new type"
-interface Person {
+@doc "A physical or virtual board game."
+type BoardGame {
   id: ID
   name: String
-  email: String?
-  status: RelationshipStatus
+  summary: String? {
+    @doc "A one-line summary of the game."
+  }
+  description: String? {
+    @doc "A long-form description of the game."
+  }
+  designers: Designer[0..n] {
+    @doc "Designers who contributed to the game."
+    @lang/lacinia resolver BoardGame_designers
+  }
+  min_players: Integer? {
+    @doc "The minimum number of players the game supports."
+  }
+  max_players: Integer? {
+    @doc "The maximum number of players the game supports."
+  }
+  play_time: Integer? {
+    @doc "Play time, in minutes, for a typical game."
+  }
 }
 
-interface Human {
-  temperature: Float
-}
-
-type Employee : Person Human {
-  salary: Float
-  changeSalary(newSalary: Float): Float
+@doc "A person who may have contributed to a board game design."
+type Designer {
+  id: ID
+  name: String
+  url: String? {
+    @doc "Home page URL, if known."
+    @lang/spec validator url?
+  }
+  games: BoardGame[0..n] {
+    @doc "Games designed by this designer."
+    @lang/lacinia resolver Designer_games
+  }
 }
 
 @lang/lacinia identifier query
 type QueryRoot {
-  friends: Person[0..n]
+  game_by_id(id: ID?): BoardGame? {
+    @doc "Access a BoardGame by its unique id, if it exists."
+    @lang/lacinia resolver query_game-by-id
+  }
 }

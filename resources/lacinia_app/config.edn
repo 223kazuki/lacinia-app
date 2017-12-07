@@ -3,16 +3,22 @@
 
  :lacinia-app/umlaut
  {:umlaut-files-folder "schema"
-  :lacinia {:output-file "resource/schema.edn"}}
+  :lacinia {:output-file "resources/lacinia_app/schema.edn"}
+  :dot {:output-folder "graphviz"}
+  :spec {:output-folder "spec"
+         :spec-package "lacinia-app.spec"
+         :custom-validators-filepath "lacinia-app.validators"
+         :id-namespace "lacinia-app"}}
 
  :lacinia-app/db
- {:data-path "lacinia_app/cgg-data.edn"}
+ {:initial-data-path "lacinia_app/data.edn"}
 
  :lacinia-app/resolvers
  {:db #ig/ref :lacinia-app/db}
 
  :lacinia-app/schema
- {:schema-path "lacinia_app/cgg-schema.edn"
+ {:schema-path "lacinia_app/schema.edn"
+  :umlaut #ig/ref :lacinia-app/umlaut
   :resolvers #ig/ref :lacinia-app/resolvers}
 
  :lacinia-app/pedestal

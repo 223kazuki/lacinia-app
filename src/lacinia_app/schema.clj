@@ -5,7 +5,7 @@
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]))
 
-(defmethod ig/init-key :lacinia-app/schema [_ {:keys [schema-path resolvers]}]
+(defmethod ig/init-key :lacinia-app/schema [_ {:keys [schema-path umlaut resolvers]}]
   (-> (io/resource schema-path)
       slurp
       edn/read-string

@@ -11,6 +11,7 @@
   :plugins [[duct/lein-duct "0.10.5"]]
   :main ^:skip-aot lacinia-app.main
   :resource-paths ["resources" "target/resources"]
+  :clean-targets ["spec" "graphviz"]
   :prep-tasks     ["javac" "compile" ["run" ":duct/compiler"]]
   :profiles
   {:dev  [:project/dev :profiles/dev]

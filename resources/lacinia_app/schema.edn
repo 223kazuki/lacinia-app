@@ -1,0 +1,57 @@
+{:objects
+ {:BoardGame
+  {:fields
+   {:id {:type (non-null ID), :isDeprecated false},
+    :name {:type (non-null String), :isDeprecated false},
+    :summary
+    {:type String,
+     :description "A one-line summary of the game.",
+     :isDeprecated false},
+    :description
+    {:type String,
+     :description "A long-form description of the game.",
+     :isDeprecated false},
+    :designers
+    {:type (non-null (list (non-null :Designer))),
+     :description "Designers who contributed to the game.",
+     :isDeprecated false,
+     :resolve :BoardGame_designers},
+    :min_players
+    {:type Int,
+     :description "The minimum number of players the game supports.",
+     :isDeprecated false},
+    :max_players
+    {:type Int,
+     :description "The maximum number of players the game supports.",
+     :isDeprecated false},
+    :play_time
+    {:type Int,
+     :description "Play time, in minutes, for a typical game.",
+     :isDeprecated false}},
+   :implements [],
+   :description "A physical or virtual board game."},
+  :Designer
+  {:fields
+   {:id {:type (non-null ID), :isDeprecated false},
+    :name {:type (non-null String), :isDeprecated false},
+    :url
+    {:type String,
+     :description "Home page URL, if known.",
+     :isDeprecated false},
+    :games
+    {:type (non-null (list (non-null :BoardGame))),
+     :description "Games designed by this designer.",
+     :isDeprecated false,
+     :resolve :Designer_games}},
+   :implements [],
+   :description
+   "A person who may have contributed to a board game design."}},
+ :enums {},
+ :interfaces {},
+ :queries
+ {:game_by_id
+  {:type :BoardGame,
+   :description "Access a BoardGame by its unique id, if it exists.",
+   :isDeprecated false,
+   :args {:id {:type ID}},
+   :resolve :query_game-by-id}}}

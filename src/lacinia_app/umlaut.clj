@@ -44,26 +44,32 @@
         (utils/save-string-to-file (join-path out (str filename ".clj")) v)))))
 
 (defn- process-lacinia [ins out]
-  (utils/save-map-to-file out (lacinia/gen ins))
-  (lacinia/gen ins))
+  (let [map (lacinia/gen ins)]
+    (utils/save-map-to-file out (lacinia/gen ins))
+    map))
 
 (defn- process-graphql [ins out]
-  (utils/save-string-to-file out (graphql/gen ins))
-  (graphql/gen ins))
+  (let [map (graphql/gen ins)]
+    (utils/save-string-to-file out (graphql/gen ins))
+    map))
 
 (defmethod ig/init-key :lacinia-app/umlaut [_ {:keys [umlaut-files-folder
                                                       dot lacinia graphql spec]}]
   (let [umlaut-files (get-umlaut-files umlaut-files-folder)]
     (as-> {} $
       (if-let [{:keys [output-folder]} dot]
-        (do (process-dot umlaut-files output-folder)
-            (assoc $ :dot dot)) $)
+        (do (io/make-parents (str output-folder "/*"))
+            (assoc $ :dot (merge dot
+                                 (process-dot umlaut-files output-folder)))) $)
       (if-let [{:keys [output-file]} lacinia]
-        (do (process-lacinia umlaut-files output-file)
-            (assoc $ :lacinia lacinia)) $)
+        (do (io/make-parents output-file)
+            (assoc $ :lacinia (merge lacinia
+                                     (process-lacinia umlaut-files output-file)))) $)
       (if-let [{:keys [output-file]} graphql]
-        (do (println (process-graphql umlaut-files output-file))
-            (assoc $ :graphql graphql)) $)
+        (do (io/make-parents output-file)
+            (assoc $ :graphql (merge graphql
+                                     (process-graphql umlaut-files output-file)))) $)
       (if-let [{:keys [output-folder spec-package custom-validators-filepath id-namespace]} spec]
-        (do (process-spec umlaut-files [output-folder spec-package custom-validators-filepath id-namespace])
-            (assoc $ :spec spec)) $))))
+        (do (io/make-parents (str output-folder "/*"))
+            (assoc $ :spec (merge spec
+                                  (process-spec umlaut-files [output-folder spec-package custom-validators-filepath id-namespace])))) $))))
