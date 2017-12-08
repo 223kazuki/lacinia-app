@@ -51,7 +51,7 @@
  :mutations
  {:add_game
   {:type :BoardGame,
-   :description "Access a BoardGame by its unique id, if it exists.",
+   :description "Add a new BoardGame.",
    :isDeprecated false,
    :args
    {:name {:type (non-null String)},

@@ -22,4 +22,5 @@
   :resolvers #ig/ref :lacinia-app/resolvers}
 
  :lacinia-app/pedestal
- {:schema #ig/ref :lacinia-app/schema}}
+ {:graphiql true
+  :schema #ig/ref :lacinia-app/schema}}
