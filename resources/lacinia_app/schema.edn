@@ -62,7 +62,12 @@
     :play_time {:type Int}},
    :resolve :mutaition_add-game!}},
  :queries
- {:game_by_id
+ {:games
+  {:type (non-null (list (non-null :BoardGame))),
+   :description "Access all BoardGames",
+   :isDeprecated false,
+   :resolve :query_games},
+  :game_by_id
   {:type :BoardGame,
    :description "Access a BoardGame by its unique id, if it exists.",
    :isDeprecated false,

@@ -39,6 +39,10 @@ type Designer {
 
 @lang/lacinia identifier query
 type QueryRoot {
+  games(): BoardGame[0..n] {
+    @doc "Access all BoardGames"
+    @lang/lacinia resolver query_games
+  }
   game_by_id(id: ID?): BoardGame? {
     @doc "Access a BoardGame by its unique id, if it exists."
     @lang/lacinia resolver query_game-by-id

@@ -11,6 +11,10 @@
           {}
           (get @db k)))
 
+(defn resolve-games
+  [db context args value]
+  (:games @db))
+
 (defn resolve-game-by-id
   [db context args value]
   (let [games-map (entity-map db :games)
@@ -52,6 +56,7 @@
 (defmethod ig/init-key :lacinia-app/resolvers [_ {:keys [db]}]
   ;; TODO: https://github.com/workco/umlaut/issues/40
   {:query_game-by-id (partial resolve-game-by-id db)
+   :query_games (partial resolve-games db)
    :BoardGame_designers (partial resolve-board-game-designers db)
    :Designer_games (partial resolve-designer-games db)
    :mutaition_add-game! (partial resolve-add-game! db)})
