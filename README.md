@@ -1,6 +1,6 @@
 # lacinia-app
 
-FIXME: description
+Example App for [Lacinia](https://github.com/walmartlabs/lacinia)
 
 ## Developing
 

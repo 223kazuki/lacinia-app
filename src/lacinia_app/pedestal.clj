@@ -3,7 +3,8 @@
             [com.walmartlabs.lacinia.pedestal :as pedestal]
             [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
-            [io.pedestal.http.cors :refer [allow-origin]]))
+            [io.pedestal.http.cors :refer [allow-origin]]
+            [com.walmartlabs.lacinia :as lc]))
 
 (defmethod ig/init-key :lacinia-app/pedestal [_ {:keys [schema graphiql]}]
   (let [options {:graphiql (true? graphiql)}

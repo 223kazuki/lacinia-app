@@ -1,4 +1,4 @@
-(ns lacinia-app.umlaut
+(ns lacinia-app.module.umlaut
   (:require [integrant.core :as ig]
             [clojure.java.io :as io]
             [clojure.string :as str]
@@ -53,8 +53,8 @@
     (utils/save-string-to-file out (graphql/gen ins))
     map))
 
-(defmethod ig/init-key :lacinia-app/umlaut [_ {:keys [umlaut-files-folder
-                                                      dot lacinia graphql spec]}]
+(defmethod ig/init-key :lacinia-app.module/umlaut [_ {:keys [umlaut-files-folder
+                                                             dot lacinia graphql spec]}]
   (let [umlaut-files (get-umlaut-files umlaut-files-folder)]
     (as-> {} $
       (if-let [{:keys [output-folder]} dot]

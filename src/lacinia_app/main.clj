@@ -6,7 +6,7 @@
 (duct/load-hierarchy)
 
 (defn -main [& args]
-  (let [keys (or (duct/parse-keys args) [:duct/daemon])]
+  (let [keys (or (duct/parse-keys args) [:lacinia-app/pedestal])]
     (-> (duct/read-config (io/resource "lacinia_app/config.edn"))
         (duct/prep keys)
         (duct/exec keys))))
