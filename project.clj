@@ -6,9 +6,9 @@
                  [duct/core "0.6.1"]
                  [com.walmartlabs/lacinia "0.23.0"]
                  [com.walmartlabs/lacinia-pedestal "0.5.0"]
-                 [umlaut "0.2.0"]
-                 [lein-umlaut "0.2.0"]]
-  :plugins [[duct/lein-duct "0.10.5"]]
+                 [umlaut "0.2.0"]]
+  :plugins [[duct/lein-duct "0.10.5"]
+            [lein-umlaut "0.2.0"]]
   :main ^:skip-aot lacinia-app.main
   :resource-paths ["resources" "target/resources"]
   :clean-targets ["spec" "graphviz"]
